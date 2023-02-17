@@ -8,48 +8,73 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- TODO: Cargar CSS Bootstrap (no es necesario el JS) -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
     </head>
 
     <body>
 
-        <h1 id="autor">Autor: TU NOMBRE AQUÍ</h1>
+        <h1 id="autor">Autor: Sergio Montes</h1>
 
         <!-- https://vuejs.org/v2/guide/index.html -->
         <div id="app">
-            <!--
-                 TODO: Aplicación VueJS. Ver archivo ./js/script.js
-               - Mostrar el título de la colección dentro de un componente Jumbotron de Bootstrap https://getbootstrap.com/docs/4.0/components/jumbotron/. En su interior habrá un <h1> con id "title" que mostrará el título de la colección
-               - Para cada item: (https://vuejs.org/v2/guide/index.html#Conditionals-and-Loops)
-                 - Crear un componente item-data
-            -->
-
+            <div class="jumbotron mt-4 p-5 ms-3 text-dark rounded" style="background-color:#E9ECEF;">
+                <h1 id="title">{{ col.collection.title }}</h1>
+            </div>
+            <div class="my-div">
+              
+                <item-data :col="col" v-if="col.collection.showEditForm"></item-data>
+                <edit-form :col="col" v-else="col.collection.showEditForm"></edit-form>
+              </div>
         </div>
 
-
-
         <!-- Plantilla para el componente edit-form -->
-        <script type="text/x-template" id="editForm">
-
-            <!--
-                 TODO: Componente edit-form
-            -->
-
+        <script type="text/x-template" id="editForm" >
+            <div class="row">
+                
+            </div>
+           
         </script>
-
-
-
         <!-- Plantilla para el componente item-data -->
         <script type="text/x-template" id="itemData">
+            <div class="row">
+                <div class="card col-lg-4" v-for="movie in col.collection.items">
+                    <div class="card-body">
+                        <div v-for="item in movie.data">
+                            <h5 class="card-title">{{ item.prompt }}</h5>
+                            <p class="card-text">{{ item.value }}</p>
+                        </div>
+                        <a :href="movie.href" class="btn btn-primary">Ver</a>
+                        <button @click="toggleEditFormVisibility(movie.id)" class="btn text-white "  style="background-color:#707070;">Editar</button>
 
-            <!--
-                 TODO: Componente item-data
-            -->
+                    </div>
+                </div>
+            </div>
+           
+          </script>
 
-        </script>
-
-
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <script src="js/script.js"></script>
         <!-- TODO: Cargar librería VueJS y archivo js/script.js -->
 
     </body>
 
 </html>
+
+<!--  
+    <div class="container row mx-auto">
+              <div v-for="movie in col.collection.items" class="col-md-4 mb-3 card">
+                <div class="container mt-4 mb-3">
+                  <div v-for="item in movie.data">
+                    <p class="fw-bold m-0">{{item.prompt}}</p>
+                    <p>{{item.value}}</p>
+                  </div>
+                  <a :href="movie.href" class="btn btn-primary w-25" target="_blank">Ver</a>
+                  <button @click="toggleEditFormVisibility(movie.id)" class="btn btn-primary w-25">Editar</button>
+                </div>
+              </div>
+            </div>
+ -->
