@@ -46,7 +46,23 @@ var server_data = {
 // TODO: Componente edit-form
 Vue.component('edit-form', {
     template: '#editForm',
-    props: ['col']
+    props: ['col'],
+    methods: {
+        closeForm(id) {
+            server_data.collection.items.forEach(movie=>{
+                if(movie.id == id){
+                    movie.data[0].value=this.$refs.name[0].value;
+                    movie.data[1].value=this.$refs.description[0].value;
+                    movie.data[2].value=this.$refs.director[0].value;
+                    movie.data[3].value=this.$refs.datePublished[0].value;
+                    console.log(this.$refs.name[0].value);
+                    console.log(movie.data[0].value);
+                }
+            })
+            server_data.collection.showEditForm = !server_data.collection.showEditForm;
+        
+        }
+    }
 })
 
 // TODO: Componente item-data

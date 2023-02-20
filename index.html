@@ -32,7 +32,22 @@
         <!-- Plantilla para el componente edit-form -->
         <script type="text/x-template" id="editForm" >
             <div class="row">
-                
+                <div class="card col-lg-4" v-for="movie in col.collection.items">
+                    <div class="card-body" v-if="col.collection.idEditar == movie.id">
+                        <div v-for="item in movie.data">
+                            <h5 class="card-title">{{ item.prompt }}</h5>
+                            <textarea type="text" class="form-control" :ref="item.name" :value="item.value"></textarea>
+                        </div> 
+                        <button @click="closeForm(movie.id)" class="btn btn-primary ">Cerrar</button>
+                    </div>
+                    <div class="card-body" v-else>
+                        <div v-for="item in movie.data">
+                            <h5 class="card-title">{{ item.prompt }}</h5>
+                            <p class="card-text">{{ item.value }}</p>
+                        </div>
+                        <a :href="movie.href" class="btn btn-primary">Ver</a>
+                    </div>
+                </div>
             </div>
            
         </script>
